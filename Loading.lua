@@ -1019,6 +1019,24 @@ local args = {
 
 game:GetService("Players").LocalPlayer.Backpack.PlayerControls.Attack:FireServer(unpack(args))
 
+
+local L = game:GetService("Workspace").Live["G-Force Elite"].Humanoid.MaxHealth
+
+O = L - 1
+
+if game:GetService("Workspace").Live["G-Force Elite"].Humanoid.Health >= O then
+    game:GetService("Workspace").Live["G-Force Elite"].Humanoid.Health = die
+end
+            end
+        end)
+       end)
+    end)
+    
+    spawn(function()
+       game:GetService("RunService").RenderStepped:Connect(function()
+        pcall(function()
+        if _G.Q then
+
 local args = {
     [1] = "On"
 }
@@ -1026,6 +1044,16 @@ local args = {
 game:GetService("Players").LocalPlayer.Backpack.PlayerControls.Block:FireServer(unpack(args))
 
 
+local L = game:GetService("Workspace").Live["G-Force Elite"].Humanoid.MaxHealth
+            end
+        end)
+       end)
+    end)
+    
+    spawn(function()
+       game:GetService("RunService").RenderStepped:Connect(function()
+        pcall(function()
+        if _G.Q then
 local L = game:GetService("Workspace").Live["G-Force Elite"].Humanoid.MaxHealth
 
 O = L - 1
