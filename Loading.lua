@@ -923,16 +923,26 @@ Home:CreateToggle("Auto Farm",function(value)
 _G.Q = value
 end)
 
-stat:CreateToggle("Health",function(value)
-_G.Health = value
-while _G.Health do wait(0.1)
-local args = {
-    [1] = "Health",
-    [2] = 1
-}
-
-game:GetService("ReplicatedStorage").Remotes.UpdateStat:InvokeServer(unpack(args))
-end
+Home:CreateButton("God Mode",function(value)
+        local Cam = workspace.CurrentCamera
+local speaker = game.Players.LocalPlayer
+    local Pos, Char = Cam.CFrame, speaker.Character
+    local Human = Char and Char.FindFirstChildWhichIsA(Char, "Humanoid")
+    local nHuman = Human.Clone(Human)
+    nHuman.Parent, speaker.Character = Char, nil
+    nHuman.SetStateEnabled(nHuman, 15, false)
+    nHuman.SetStateEnabled(nHuman, 1, false)
+    nHuman.SetStateEnabled(nHuman, 0, false)
+    nHuman.BreakJointsOnDeath, Human = true, Human.Destroy(Human)
+    speaker.Character, Cam.CameraSubject, Cam.CFrame = Char, nHuman, wait() and Pos
+    nHuman.DisplayDistanceType = Enum.HumanoidDisplayDistanceType.None
+    local Script = Char.FindFirstChild(Char, "Animate")
+    if Script then
+        Script.Disabled = true
+        wait()
+        Script.Disabled = false
+    end
+    nHuman.Health = nHuman.MaxHealth
 end)
 
 stat:CreateToggle("Health",function(value)
@@ -999,18 +1009,22 @@ end)
     spawn(function()
        game:GetService("RunService").RenderStepped:Connect(function()
         pcall(function()
-            if _G.Q then
-    local Distance2 = (game:GetService("Workspace").Live["G-Force Elite"].HumanoidRootPart.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude
-    local tween_s = game:service"TweenService"
-    local info = TweenInfo.new(Distance2/200, Enum.EasingStyle.Linear)
-    local tween = tween_s:Create(game:GetService("Players").LocalPlayer.Character["HumanoidRootPart"], info, {CFrame = game:GetService("Workspace").Live["G-Force Elite"].HumanoidRootPart.CFrame * CFrame.new(0,3,5.5)})
-    tween:Play()
+        if _G.Q then
+
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").Live["G-Force Elite"].HumanoidRootPart.CFrame * CFrame.new(0,-5,3)
 
 local args = {
     [1] = "M1"
 }
 
 game:GetService("Players").LocalPlayer.Backpack.PlayerControls.Attack:FireServer(unpack(args))
+
+local args = {
+    [1] = "On"
+}
+
+game:GetService("Players").LocalPlayer.Backpack.PlayerControls.Block:FireServer(unpack(args))
+
 
 local L = game:GetService("Workspace").Live["G-Force Elite"].Humanoid.MaxHealth
 
@@ -1022,4 +1036,14 @@ end
             end
         end)
        end)
+    end)
+
+    spawn(function()
+        game:GetService("RunService").Heartbeat:Connect(function()
+            if game:GetService("Players").LocalPlayer.Character:FindFirstChild("Humanoid") and _G.Q then
+                setfflag("HumanoidParallelRemoveNoPhysics", "False")
+                setfflag("HumanoidParallelRemoveNoPhysicsNoSimulate2", "False")
+                game:GetService("Players").LocalPlayer.Character.Humanoid:ChangeState(11)
+            end
+        end)
     end)
