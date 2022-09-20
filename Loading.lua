@@ -1,3 +1,24 @@
+function CheckLevel()
+    local Lv = game:GetService("Players").LocalPlayer.DataFolder["Stats_Info"].Level.Value
+    if Lv == 1 or Lv <= 9 then
+    MN = "Snake"
+    QN = "Evil Snakes"
+    CF = "Muffy"
+    elseif Lv == 10 or Lv <= 19 then
+    MN = "Monkey"
+    QN = "Banana Thieves"
+    CF = "Krilly"
+elseif Lv == 20 or Lv <= 49 then
+    MN = "Bandit"
+    QN = "The Bandit's Rampage"
+    CF = "Bell"
+elseif Lv == 50 or Lv <= 59 then
+    MN = "Fishman"
+    QN = "Fishman Pirates"
+    CF = "Monie"
+end
+end
+
 	 local DINOHUB = Instance.new("ScreenGui")
 local OPENCLOSE = Instance.new("TextButton")
 
@@ -920,7 +941,40 @@ local Home = DinoPage:NewSection("Auto Farm")
 local stat = DinoPage1:NewSection("Auto Stats")
 
 Home:CreateToggle("Auto Farm",function(value)
-_G.Q = value
+_G.AF =  value
+_G.NC = value
+_G.AB = value
+end)
+
+Home:CreateToggle("Auto Ore (Need God Mode)",function(value)
+_G.Ores = value
+_G.Noclip = value
+while _G.Ores do wait(3.4)
+for i,v in pairs(game:GetService("Workspace").Interactable.Ores:GetChildren()) do
+    if v.Ores.Transparency == 0 then
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.Ores.CFrame
+    task.wait(0.3)
+    game:GetService("VirtualInputManager"):SendKeyEvent(true,"E",false,game)
+    task.wait(3)
+    game:GetService("VirtualInputManager"):SendKeyEvent(false,"E",false,game)
+end
+end
+end
+end)
+
+Home:CreateButton("Look Like Invisible",function(value)
+    wait(0.1)
+for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+    if v.ClassName == "Accessory" then
+    v:Destroy()
+end
+end
+wait(0.1)
+game.Players.LocalPlayer.Character.Pants:Destroy()
+wait(0.1)
+game.Players.LocalPlayer.Character.Shirt:Destroy()
+wait(0.1)
+game.Players.LocalPlayer.Character.Head["Overhead_Info"]:Destroy()
 end)
 
 Home:CreateButton("God Mode",function(value)
@@ -1006,69 +1060,77 @@ game:GetService("ReplicatedStorage").Remotes.UpdateStat:InvokeServer(unpack(args
 end
 end)
 
+
+    
     spawn(function()
        game:GetService("RunService").RenderStepped:Connect(function()
         pcall(function()
-        if _G.Q then
-
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").Live["G-Force Elite"].HumanoidRootPart.CFrame * CFrame.new(0,-5,3)
-
+        if _G.AF then
+CheckLevel()
+if game:GetService("Players").LocalPlayer.DataFolder["Quests_Info"].CurrentQuest.Value == QN then
+    local Distance2 = (game:GetService("Workspace").Live[MN].HumanoidRootPart.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude
+    local tween_s = game:service"TweenService"
+    local info = TweenInfo.new(Distance2/200, Enum.EasingStyle.Linear)
+    local tween = tween_s:Create(game:GetService("Players").LocalPlayer.Character["HumanoidRootPart"], info, {CFrame = game:GetService("Workspace").Live[MN].HumanoidRootPart.CFrame * CFrame.new(0,4,4.5)})
+    tween:Play()
 local args = {
     [1] = "M1"
 }
 
 game:GetService("Players").LocalPlayer.Backpack.PlayerControls.Attack:FireServer(unpack(args))
 
-
-local L = game:GetService("Workspace").Live["G-Force Elite"].Humanoid.MaxHealth
-
-O = L - 1
-
-if game:GetService("Workspace").Live["G-Force Elite"].Humanoid.Health >= O then
-    game:GetService("Workspace").Live["G-Force Elite"].Humanoid.Health = die
+else
+    local Distance2 = (game:GetService("Workspace").Interactable.Quests.Repeatable[CF].HumanoidRootPart.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude
+    local tween_s = game:service"TweenService"
+    local info = TweenInfo.new(Distance2/200, Enum.EasingStyle.Linear)
+    local tween = tween_s:Create(game:GetService("Players").LocalPlayer.Character["HumanoidRootPart"], info, {CFrame = game:GetService("Workspace").Interactable.Quests.Repeatable[CF].HumanoidRootPart.CFrame * CFrame.new(0,0,3)})
+    tween:Play()
+    game:GetService("VirtualInputManager"):SendKeyEvent(true,"E",false,game)
+    task.wait(2)
+    game:GetService("VirtualInputManager"):SendKeyEvent(false,"E",false,game)
 end
             end
         end)
        end)
     end)
     
+
+spawn(function()
+    game:GetService("RunService").Heartbeat:Connect(function()
+        if _G.NC then
+            if not game:GetService("Workspace"):FindFirstChild("LOL") then
+                local LOL = Instance.new("Part")
+                LOL.Name = "LOL"
+                LOL.Parent = game.Workspace
+                LOL.Anchored = true
+                LOL.Transparency = 0
+                LOL.Size = Vector3.new(3,-0.5,3)
+                LOL.Material = "Neon"
+            elseif game:GetService("Workspace"):FindFirstChild("LOL") then
+                game.Workspace["LOL"].CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0,-3.5,0)
+            end
+        end
+    end)
+end)
+
     spawn(function()
        game:GetService("RunService").RenderStepped:Connect(function()
         pcall(function()
-        if _G.Q then
-
+        if _G.AB then
 local args = {
     [1] = "On"
 }
 
 game:GetService("Players").LocalPlayer.Backpack.PlayerControls.Block:FireServer(unpack(args))
-
-
-local L = game:GetService("Workspace").Live["G-Force Elite"].Humanoid.MaxHealth
             end
         end)
        end)
     end)
     
-    spawn(function()
-       game:GetService("RunService").RenderStepped:Connect(function()
-        pcall(function()
-        if _G.Q then
-local L = game:GetService("Workspace").Live["G-Force Elite"].Humanoid.MaxHealth
-
-O = L - 1
-
-if game:GetService("Workspace").Live["G-Force Elite"].Humanoid.Health >= O then
-    game:GetService("Workspace").Live["G-Force Elite"].Humanoid.Health = die
-end
-            end
-        end)
-       end)
-    end)
 
     spawn(function()
         game:GetService("RunService").Heartbeat:Connect(function()
-            if game:GetService("Players").LocalPlayer.Character:FindFirstChild("Humanoid") and _G.Q then
+            if game:GetService("Players").LocalPlayer.Character:FindFirstChild("Humanoid") and _G.Noclip then
                 setfflag("HumanoidParallelRemoveNoPhysics", "False")
                 setfflag("HumanoidParallelRemoveNoPhysicsNoSimulate2", "False")
                 game:GetService("Players").LocalPlayer.Character.Humanoid:ChangeState(11)
