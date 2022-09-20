@@ -943,7 +943,6 @@ local stat = DinoPage1:NewSection("Auto Stats")
 Home:CreateToggle("Auto Farm",function(value)
 _G.AF =  value
 _G.NC = value
-_G.AB = value
 end)
 
 Home:CreateToggle("Auto Ore (Need God Mode)",function(value)
@@ -1071,7 +1070,7 @@ if game:GetService("Players").LocalPlayer.DataFolder["Quests_Info"].CurrentQuest
     local Distance2 = (game:GetService("Workspace").Live[MN].HumanoidRootPart.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude
     local tween_s = game:service"TweenService"
     local info = TweenInfo.new(Distance2/200, Enum.EasingStyle.Linear)
-    local tween = tween_s:Create(game:GetService("Players").LocalPlayer.Character["HumanoidRootPart"], info, {CFrame = game:GetService("Workspace").Live[MN].HumanoidRootPart.CFrame * CFrame.new(0,4,4.5)})
+    local tween = tween_s:Create(game:GetService("Players").LocalPlayer.Character["HumanoidRootPart"], info, {CFrame = game:GetService("Workspace").Live[MN].HumanoidRootPart.CFrame * CFrame.new(0,4,5)})
     tween:Play()
 local args = {
     [1] = "M1"
@@ -1112,21 +1111,6 @@ spawn(function()
         end
     end)
 end)
-
-    spawn(function()
-       game:GetService("RunService").RenderStepped:Connect(function()
-        pcall(function()
-        if _G.AB then
-local args = {
-    [1] = "On"
-}
-
-game:GetService("Players").LocalPlayer.Backpack.PlayerControls.Block:FireServer(unpack(args))
-            end
-        end)
-       end)
-    end)
-    
 
     spawn(function()
         game:GetService("RunService").Heartbeat:Connect(function()
