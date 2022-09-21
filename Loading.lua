@@ -8,10 +8,14 @@ function CheckLevel()
     MN = "Monkey"
     QN = "Banana Thieves"
     CF = "Krilly"
-elseif Lv == 20 or Lv <= 49 then
+elseif Lv == 20 or Lv <= 39 then
     MN = "Bandit"
     QN = "The Bandit's Rampage"
     CF = "Bell"
+elseif Lv == 40 or Lv <= 49 then
+    MN = "Ninja"
+    QN = "The Secret Plan"
+    CF = "Orochi"
 elseif Lv == 50 or Lv <= 59 then
     MN = "Fishman"
     QN = "Fishman Pirates"
@@ -961,6 +965,24 @@ end
 end
 end)
 
+Home:CreateToggle("Auto Items (Need God Mode)",function(value)
+_G.Loot = value
+_G.Noclip = value
+while _G.Loot do wait(3.2)
+for i,v in pairs(game:GetService("Workspace").Loot:GetChildren()) do
+                        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.Main.CFrame
+wait(1)
+
+    game:GetService("VirtualInputManager"):SendKeyEvent(true,"E",false,game)
+    task.wait(2)
+    game:GetService("VirtualInputManager"):SendKeyEvent(false,"E",false,game)
+    
+
+
+end
+end
+end)
+
 Home:CreateButton("Look Like Invisible",function(value)
     wait(0.1)
 for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
@@ -1070,7 +1092,7 @@ if game:GetService("Players").LocalPlayer.DataFolder["Quests_Info"].CurrentQuest
     local Distance2 = (game:GetService("Workspace").Live[MN].HumanoidRootPart.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude
     local tween_s = game:service"TweenService"
     local info = TweenInfo.new(Distance2/200, Enum.EasingStyle.Linear)
-    local tween = tween_s:Create(game:GetService("Players").LocalPlayer.Character["HumanoidRootPart"], info, {CFrame = game:GetService("Workspace").Live[MN].HumanoidRootPart.CFrame * CFrame.new(0,4,5)})
+    local tween = tween_s:Create(game:GetService("Players").LocalPlayer.Character["HumanoidRootPart"], info, {CFrame = game:GetService("Workspace").Live[MN].HumanoidRootPart.CFrame * CFrame.new(0,0,6)})
     tween:Play()
 local args = {
     [1] = "M1"
