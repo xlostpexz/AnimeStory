@@ -1105,8 +1105,6 @@ if game:GetService("Players").LocalPlayer.DataFolder["Quests_Info"].CurrentQuest
     local info = TweenInfo.new(Distance2/200, Enum.EasingStyle.Linear)
     local tween = tween_s:Create(game:GetService("Players").LocalPlayer.Character["HumanoidRootPart"], info, {CFrame = game:GetService("Workspace").Live[MN].HumanoidRootPart.CFrame * MU})
     tween:Play()
-
-
 local args = {
     [1] = "M1"
 }
@@ -1128,7 +1126,6 @@ end
         end)
        end)
     end)
-    
 
 spawn(function()
     game:GetService("RunService").Heartbeat:Connect(function()
