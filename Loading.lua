@@ -952,11 +952,11 @@ Home:CreateToggle("Auto Farm",function(value)
 _G.AF =  value
 _G.NC = value
 while _G.AF do wait(0.2)
-MU = CFrame.new(4,0,0) * CFrame.Angles(math.rad(0),90,0)
+MU = CFrame.new(6,0,0) * CFrame.Angles(math.rad(0),90,0)
 wait(0.1)
-MU = CFrame.new(-4,0,0) * CFrame.Angles(math.rad(0),-90,0)
+MU = CFrame.new(-6,0,0) * CFrame.Angles(math.rad(0),-90,0)
 wait(0.1)
-MU = CFrame.new(0,0,4)
+MU = CFrame.new(0,0,5)
 end
 end)
 
