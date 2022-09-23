@@ -20,6 +20,10 @@ elseif Lv == 50 or Lv <= 59 then
     MN = "Fishman"
     QN = "Fishman Pirates"
     CF = "Monie"
+elseif Lv == 60 or Lv <= 69 then
+    MN = "G-Force Elite"
+    QN = "The G Force"
+    CF = "Picol"
 end
 end
 
@@ -947,6 +951,13 @@ local stat = DinoPage1:NewSection("Auto Stats")
 Home:CreateToggle("Auto Farm",function(value)
 _G.AF =  value
 _G.NC = value
+while _G.AF do wait(0.2)
+MU = CFrame.new(4,0,0) * CFrame.Angles(math.rad(0),90,0)
+wait(0.1)
+MU = CFrame.new(-4,0,0) * CFrame.Angles(math.rad(0),-90,0)
+wait(0.1)
+MU = CFrame.new(0,0,4)
+end
 end)
 
 Home:CreateToggle("Auto Ore (Need God Mode)",function(value)
@@ -1092,8 +1103,10 @@ if game:GetService("Players").LocalPlayer.DataFolder["Quests_Info"].CurrentQuest
     local Distance2 = (game:GetService("Workspace").Live[MN].HumanoidRootPart.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude
     local tween_s = game:service"TweenService"
     local info = TweenInfo.new(Distance2/200, Enum.EasingStyle.Linear)
-    local tween = tween_s:Create(game:GetService("Players").LocalPlayer.Character["HumanoidRootPart"], info, {CFrame = game:GetService("Workspace").Live[MN].HumanoidRootPart.CFrame * CFrame.new(0,0,6)})
+    local tween = tween_s:Create(game:GetService("Players").LocalPlayer.Character["HumanoidRootPart"], info, {CFrame = game:GetService("Workspace").Live[MN].HumanoidRootPart.CFrame * MU})
     tween:Play()
+
+
 local args = {
     [1] = "M1"
 }
@@ -1106,6 +1119,7 @@ else
     local info = TweenInfo.new(Distance2/200, Enum.EasingStyle.Linear)
     local tween = tween_s:Create(game:GetService("Players").LocalPlayer.Character["HumanoidRootPart"], info, {CFrame = game:GetService("Workspace").Interactable.Quests.Repeatable[CF].HumanoidRootPart.CFrame * CFrame.new(0,0,3)})
     tween:Play()
+
     game:GetService("VirtualInputManager"):SendKeyEvent(true,"E",false,game)
     task.wait(2)
     game:GetService("VirtualInputManager"):SendKeyEvent(false,"E",false,game)
